@@ -109,14 +109,16 @@ function add(addTask) {
  *
  * @returns {void}
  */
-function remove(taskR){
+function remove(taskR) {
   var index = Number(taskR);
-  if(isNaN(index)){
-   tasksList.splice(tasksList.length-1,1);
-  }else {
-   tasksList.splice(index-1,1);
- }
- console.log("Your task have been deleted. Check the new upadted list if u want!")
+  if (isNaN(index)) {
+    tasksList.splice(tasksList.length - 1, 1);
+  } else {
+    tasksList.splice(index - 1, 1);
+  }
+  console.log(
+    "Your task have been deleted. Check the new upadted list if u want!"
+  );
 }
 
 /**
@@ -144,7 +146,14 @@ function help() {
       "\n" +
       "--help --> Provides help with all possible commands" +
       "\n" +
-      "--exit or quit --> Exit or quit the application"
+      "--exit or quit --> Exit or quit the application" +
+      "\n" +
+      '--add --> Type add "Task_name" if you want to add a new task to the exisiting list' +
+      "\n" +
+      "--remove --> remove (without anything) should remove the last task from the existing list" +
+      "\n" +
+      "--remove nb --> removes the nb of element you enetred from the existing list" +
+      "\n"
   );
   +"\n" +
     '--add --> add "Task_name" if you want to add a new task to the exisiting list' +
