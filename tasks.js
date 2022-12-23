@@ -92,11 +92,11 @@ function quit(){
  * @returns {void}
  */
 function help(){
-  console.log('--hello --> Display hello!' + '\n' +
-  '--hello ${text} --> Displays Hello & text added' + '\n' +
+  console.log('--hello --> Display hello to user' + '\n' +
+  '--hello ${text} --> If u add your rname or any text after the hello it will be displayed' + '\n' +
   '--unknown error --> Display unknown if command not found' + '\n' +
   '--help --> Provides help with all possible commands'+ '\n' +
-  '--exit or quit --> Exit or quit the application' +'\n' +
+  '--exit or quit --> Exit or quit the application'); +'\n' +
   '--add --> add "Task_name" if you want to add a new task to the exisiting list' + '\n' +
   '--remove --> removes the last task from the existing list' + '\n' +
   '--remove nb --> removes the nb of element you enetred from the existing list' + '\n'+
@@ -107,7 +107,7 @@ function help(){
   '--uncheck nb_task --> Uncheck the task index' +'\n' +
   '--node fileName.js --> runs the apps with the default saved JSON file' + '\n' +
   '--node fileName.js JSONFile.json --> runs the app with the entered JSON file'
-  );
+  ;
 }
 
 // The following line starts the application
