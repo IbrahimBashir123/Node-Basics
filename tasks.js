@@ -250,7 +250,11 @@ function help() {
       "\n" +
       "--edit new task --> edits the last element in the list with the new task name entered" +
       "\n" +
-      "--edit nb new task --> edits the indexed element you enetred with the new task name"
+      "--edit nb new task --> edits the indexed element you enetred with the new task name" +
+      "\n" +
+      "--check nb_task --> Checks the task index" +
+      "\n" +
+      "--uncheck nb_task --> Uncheck the task index"
   );
   +"\n" +
     '--add --> add "Task_name" if you want to add a new task to the exisiting list' +
