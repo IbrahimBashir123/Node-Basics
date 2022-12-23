@@ -18,9 +18,9 @@ function startApp(name) {
 }
 
 var tasksList = [
-  { doneStatus: true, task: "Finish Codi Task" },
-  { doneStatus: false, task: "English HW" },
-  { doneStatus: true, task: "Submit Weather API" },
+  { doneStatus: "true", task: "Finish Codi Task" },
+  { doneStatus: "false", task: "English HW" },
+  { doneStatus: "true", task: "Submit Weather API" },
 ];
 /**
  * Decides what to do depending on the data that was received
@@ -52,6 +52,10 @@ function onDataReceived(text) {
     remove(text);
   } else if (text.startsWith("edit")) {
     edit(text);
+  } else if (text.startsWith("check")) {
+    check(text);
+  } else if (text.startsWith("uncheck")) {
+    uncheck(text);
   } else {
     unknownCommand(text);
   }
@@ -91,8 +95,10 @@ function hello(name) {
 
 function li() {
   tasksList.map((item, index) => {
-    if (item.doneStatus) {
+    if (item.doneStatus === "true") {
       console.log(`${index + 1} - [✔] ${item.task}`);
+    } else if (item.doneStatus === "false") {
+      console.log(`${index + 1} - [ ] ${item.task}`);
     } else {
       console.log(`${index + 1} - [ ] ${item.task}`);
     }
@@ -168,6 +174,42 @@ function edit(taskEdit) {
       tasksList[index - 1].task = taskEdit.trim().substring(7);
       console.log("Edits have been changed! Check your updated list");
     }
+  }
+}
+
+/**
+ * Check a list in the application
+ *
+ * @returns {void}
+ */
+function check(checking) {
+  checking = checking.trim().split(" ");
+  var index = Number(checking[1]);
+  if (checking[1] === undefined) {
+    console.log("Error! You should enter a list number to check");
+  } else if (index > tasksList.length) {
+    console.log("Error! Index not found");
+  } else {
+    tasksList[index - 1].doneStatus = "true";
+    console.log("List have been checked!");
+  }
+}
+
+/**
+ * Unchecking a list in the application
+ *
+ * @returns {void}
+ */
+function uncheck(unchecking) {
+  unchecking = unchecking.trim().split(" ");
+  var index = Number(unchecking[1]);
+  if (unchecking[1] === undefined) {
+    console.log("Error! You should enter a list number to uncheck");
+  } else if (index > tasksList.length) {
+    console.log("Error! Index not found");
+  } else {
+    tasksList[index - 1].doneStatus = "false";
+    console.log("List have been unchecked!");
   }
 }
 
