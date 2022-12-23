@@ -5,6 +5,7 @@
  * It prints a welcome line, and then a line with "----",
  * then nothing.
  *
+ *
  * @param  {string} name the name of the app
  * @returns {void}
  */
@@ -16,6 +17,11 @@ function startApp(name) {
   console.log("--------------------");
 }
 
+var tasksList = [
+  { doneStatus: true, task: "Finish Codi Task" },
+  { doneStatus: false, task: "English HW" },
+  { doneStatus: true, task: "Submit Weather API" },
+];
 /**
  * Decides what to do depending on the data that was received
  * This function receives the input sent by the user.
@@ -34,17 +40,17 @@ function startApp(name) {
 function onDataReceived(text) {
   if (text === "quit\n" || text == "exit\n") {
     quit();
-  } else if (text.trim().split(" ")[0] === "hello") {
+  } else if (text.startsWith("hello")) {
     hello(text);
   } else if (text === "help\n") {
     help();
   } else if (text.trim() === "list" || text.trim() === "li") {
     li();
-  } else if (text.trim().split(" ")[0] === "add") {
+  } else if (text.startsWith("add")) {
     add(text);
-  } else if (text.trim().split(" ")[0] === "remove") {
-    remove(text.trim().split(" ")[1]);
-  } else if (text.trim().split(" ")[0] === "edit") {
+  } else if (text.startsWith("remove")) {
+    remove(text);
+  } else if (text.startsWith("edit")) {
     edit(text);
   } else {
     unknownCommand(text);
@@ -82,11 +88,15 @@ function hello(name) {
  *
  * @returns {void}
  */
-var tasksList = ["Task_One", "Task_Two", "Task_Three"];
+
 function li() {
-  for (var i = 0; i < tasksList.length; i++) {
-    console.log(`${i + 1}: ${tasksList[i]}`);
-  }
+  tasksList.map((item, index) => {
+    if (item.doneStatus) {
+      console.log(`${index + 1} - [✔] ${item.task}`);
+    } else {
+      console.log(`${index + 1} - [ ] ${item.task}`);
+    }
+  });
 }
 
 /**
@@ -95,31 +105,38 @@ function li() {
  * @returns {void}
  */
 function add(addTask) {
-  if (addTask.trim().split(" ")[1] !== undefined) {
-    tasksList.push(addTask.trim().split(" ")[1]);
-    console.log("Your task have been successively added to your list.");
-    for (var i = 0; i < tasksList.length; i++) {
-      console.log(`${i + 1}: ${tasksList[i]}`);
-    }
+  addTask = addTask.trim().split(" ")[1];
+  if (addTask == undefined) {
+    console.log("Error! You Should add a task to the list.");
   } else {
-    console.log("Error! Yoou Should add a task to the list.");
+    let taskItem = {
+      task: addTask,
+      doneStatus: fals,
+    };
+    tasksList.push(taskItem);
+    console.log("Your task have been successively added to your list.");
   }
 }
 
-/**
+/*
  * Removing items from the list
  *
  * @returns {void}
  */
 function remove(taskR) {
-  var index = Number(taskR);
-  if (isNaN(index)) {
-    tasksList.splice(tasksList.length - 1, 1);
-  } else if (index > tasksList.length) {
+  taskR = taskR.trim().substring(7);
+  let index = Number(taskR);
+  if (index > tasksList.length) {
     console.log("You entered a task number that doesn't exist");
     return;
+  } else if (taskR) {
+    for (i = 0; i < tasksList.length; i++) {
+      if (i == tasksList.length - 1) {
+        tasksList.splice(i - 1, 1);
+      }
+    }
   } else {
-    tasksList.splice(index - 1, 1);
+    tasksList.splice(tasksList.length - 1, 1);
   }
   console.log(
     "Your task have been deleted. Check the new upadted list if u want!"
@@ -132,23 +149,23 @@ function remove(taskR) {
  * @returns {void}
  */
 function edit(taskEdit) {
-  task = taskEdit.trim().split(" ");
-  var index = Number(task[1]);
+  taskE = taskEdit.trim().split(" ");
+  var index = Number(taskE[1]);
   if (index > tasksList.length) {
     console.log("Error! Such index is not found please try Again.");
-  } else if (task[1] === undefined) {
+  } else if (taskE[1] === undefined) {
     console.log(
       "Error! No entries to edit please enter a valid number or a list string!"
     );
     return;
-  } else if (isNaN(task[1])) {
-    tasksList.splice(tasksList.length - 1, 1, taskEdit.trim().substring(4));
+  } else if (isNaN(taskE[1])) {
+    tasksList[tasksList.length - 1].task = taskEdit.trim().substring(5);
     console.log("Edits have been changed! Check your updated list");
   } else {
-    if (task[2] === undefined) {
+    if (taskE[2] === undefined) {
       console.log("Error! Index found, but no text to be replaced");
     } else {
-      tasksList.splice(index - 1, 1, taskEdit.trim().substring(7));
+      tasksList[index - 1].task = taskEdit.trim().substring(7);
       console.log("Edits have been changed! Check your updated list");
     }
   }
