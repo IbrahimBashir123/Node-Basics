@@ -81,11 +81,7 @@ function quit(){
   process.exit();
 }
 
-/**
- * Help Command that displays all possible commands 
- *
- * @returns {void}
- */
+
 function help(){
   console.log('--hello --> Display hello!' + '\n' +
   '--hello ${text} --> Displays Hello & text added' + '\n' +
