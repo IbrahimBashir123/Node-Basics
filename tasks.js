@@ -113,6 +113,9 @@ function remove(taskR) {
   var index = Number(taskR);
   if (isNaN(index)) {
     tasksList.splice(tasksList.length - 1, 1);
+  } else if (index > tasksList.length) {
+    console.log("You entered a task number that doesn't exist");
+    return;
   } else {
     tasksList.splice(index - 1, 1);
   }
