@@ -37,6 +37,9 @@ function onDataReceived(text) {
   if (text === 'quit\n' || text == 'exit\n') {
     quit();
   }
+  else if(text === 'help\n'){
+    help();
+  }
   else if(text === 'hello\n'){
     hello();
   }
@@ -76,6 +79,30 @@ function hello(){
 function quit(){
   console.log('Quitting now, goodbye!')
   process.exit();
+}
+
+/**
+ * Help Command that displays all possible commands 
+ *
+ * @returns {void}
+ */
+function help(){
+  console.log('--hello --> Display hello!' + '\n' +
+  '--hello ${text} --> Displays Hello & text added' + '\n' +
+  '--unknown error --> Display unknown if command not found' + '\n' +
+  '--help --> Provides help with all possible commands'+ '\n' +
+  '--exit or quit --> Exit or quit the application' +'\n' +
+  '--add --> add "Task_name" if you want to add a new task to the exisiting list' + '\n' +
+  '--remove --> removes the last task from the existing list' + '\n' +
+  '--remove nb --> removes the nb of element you enetred from the existing list' + '\n'+
+  '--edit --> throws an error' + '\n'+
+  '--edit new task --> edits the last element in the list with the new task name entered' + '\n'+ 
+  '--edit nb new task --> edits the indexed element you enetred with the new task name' + '\n'+ 
+  '--check nb_task --> Checks the task index' + '\n'+ 
+  '--uncheck nb_task --> Uncheck the task index' +'\n' +
+  '--node fileName.js --> runs the apps with the default saved JSON file' + '\n' +
+  '--node fileName.js JSONFile.json --> runs the app with the entered JSON file'
+  );
 }
 
 // The following line starts the application
