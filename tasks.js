@@ -1,53 +1,49 @@
-
 /**
  * Starts the application
  * This is the function that is run when the app starts
- * 
+ *
  * It prints a welcome line, and then a line with "----",
  * then nothing.
- *  
+ *
  * @param  {string} name the name of the app
  * @returns {void}
  */
-function startApp(name){
+function startApp(name) {
   process.stdin.resume();
-  process.stdin.setEncoding('utf8');
-  process.stdin.on('data', onDataReceived);
-  console.log(`Welcome to ${name}'s application!`)
-  console.log("--------------------")
+  process.stdin.setEncoding("utf8");
+  process.stdin.on("data", onDataReceived);
+  console.log(`Welcome to ${name}'s application!`);
+  console.log("--------------------");
 }
-
 
 /**
  * Decides what to do depending on the data that was received
  * This function receives the input sent by the user.
- * 
- * For example, if the user entered 
+ *
+ * For example, if the user entered
  * ```
  * node tasks.js batata
  * ```
- * 
+ *
  * The text received would be "batata"
  * This function  then directs to other functions
- * 
+ *
  * @param  {string} text data typed by the user
  * @returns {void}
  */
 function onDataReceived(text) {
-  if (text === 'quit\n' || text == 'exit\n') {
+  if (text === "quit\n" || text == "exit\n") {
     quit();
-  }
-  else if (text.trim().split(" ")[0] === "hello"){
-    hello(text)
-  }
-  else if(text === 'help\n'){
+  } else if (text.trim().split(" ")[0] === "hello") {
+    hello(text);
+  } else if (text === "help\n") {
     help();
-  }
-  else{
+  } else if (text.trim() === "list" || text.trim() === "li") {
+    li();
+  } else {
     unknownCommand(text);
   }
 }
-
 
 /**
  * prints "unknown command"
@@ -56,59 +52,85 @@ function onDataReceived(text) {
  * @param  {string} c the text received
  * @returns {void}
  */
-function unknownCommand(c){
-  console.log('unknown command: "'+c.trim()+'"')
+function unknownCommand(c) {
+  console.log('unknown command: "' + c.trim() + '"');
 }
-
 
 /**
  * Says hello
  *
  * @returns {void}
  */
-function hello(name){
-  if(name.trim().split(" ")[0] === 'hello' && name.trim().split(" ")[1] === undefined){
-    console.log('Hello!')
-  }else{
-     console.log(`${name.trim()}!`)
+function hello(name) {
+  if (
+    name.trim().split(" ")[0] === "hello" &&
+    name.trim().split(" ")[1] === undefined
+  ) {
+    console.log("Hello!");
+  } else {
+    console.log(`${name.trim()}!`);
   }
 }
-
+/**
+ * Display List
+ *
+ * @returns {void}
+ */
+var tasksList = ["Task_One", "Task_Two", "Task_Three"];
+function li() {
+  for (var i = 0; i < tasksList.length; i++) {
+    console.log(`${i + 1}: ${tasksList[i]}`);
+  }
+}
 
 /**
  * Exits the application
  *
  * @returns {void}
  */
-function quit(){
-  console.log('Quitting now, goodbye!')
+function quit() {
+  console.log("Quitting now, goodbye!");
   process.exit();
 }
 
-
 /**
- * Help Command that displays all possible commands 
+ * Help Command that displays all possible commands
  *
  * @returns {void}
  */
-function help(){
-  console.log('--hello --> Display hello to user' + '\n' +
-  '--hello ${text} --> If u add your rname or any text after the hello it will be displayed' + '\n' +
-  '--unknown error --> Display unknown if command not found' + '\n' +
-  '--help --> Provides help with all possible commands'+ '\n' +
-  '--exit or quit --> Exit or quit the application'); +'\n' +
-  '--add --> add "Task_name" if you want to add a new task to the exisiting list' + '\n' +
-  '--remove --> removes the last task from the existing list' + '\n' +
-  '--remove nb --> removes the nb of element you enetred from the existing list' + '\n'+
-  '--edit --> throws an error' + '\n'+
-  '--edit new task --> edits the last element in the list with the new task name entered' + '\n'+ 
-  '--edit nb new task --> edits the indexed element you enetred with the new task name' + '\n'+ 
-  '--check nb_task --> Checks the task index' + '\n'+ 
-  '--uncheck nb_task --> Uncheck the task index' +'\n' +
-  '--node fileName.js --> runs the apps with the default saved JSON file' + '\n' +
-  '--node fileName.js JSONFile.json --> runs the app with the entered JSON file'
-  ;
+function help() {
+  console.log(
+    "--hello --> Display hello to user" +
+      "\n" +
+      "--hello ${text} --> If u add your rname or any text after the hello it will be displayed" +
+      "\n" +
+      "--unknown error --> Display unknown if command not found" +
+      "\n" +
+      "--help --> Provides help with all possible commands" +
+      "\n" +
+      "--exit or quit --> Exit or quit the application"
+  );
+  +"\n" +
+    '--add --> add "Task_name" if you want to add a new task to the exisiting list' +
+    "\n" +
+    "--remove --> removes the last task from the existing list" +
+    "\n" +
+    "--remove nb --> removes the nb of element you enetred from the existing list" +
+    "\n" +
+    "--edit --> throws an error" +
+    "\n" +
+    "--edit new task --> edits the last element in the list with the new task name entered" +
+    "\n" +
+    "--edit nb new task --> edits the indexed element you enetred with the new task name" +
+    "\n" +
+    "--check nb_task --> Checks the task index" +
+    "\n" +
+    "--uncheck nb_task --> Uncheck the task index" +
+    "\n" +
+    "--node fileName.js --> runs the apps with the default saved JSON file" +
+    "\n" +
+    "--node fileName.js JSONFile.json --> runs the app with the entered JSON file";
 }
 
 // The following line starts the application
-startApp("Ibrahim Bashir")
+startApp("Ibrahim Bashir");
